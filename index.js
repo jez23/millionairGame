@@ -231,3 +231,70 @@ exports.handler = function(event, context, callback){
   }
 ]
 
+const helper = {
+  getAmount (counter){
+    const milestone = milestones[counter]
+    const amount = milestone.amount
+    return `For <emphasis level="strong">£${amount}</emphasis><break time="1s"/>`
+  },
+  getQuestion (counter){
+    const milestone = milestones[counter]
+    const question = milestone.questions[0]
+
+    return `<emphasis level="moderate">${question.question}</emphasis><break time="1s"/>`
+  },
+  getAnswers (counter) {
+    const milestone = milestones[counter]
+    const question = milestone.questions[0]
+
+    return `a. ${question.answers.a}<break time="1s"/>` +
+      `b. ${question.answers.b}<break time="1s"/>` +
+      `c. ${question.answers.c}<break time="1s"/>` +
+      `d. ${question.answers.d}<break time="1s"/>`
+  },
+  getAnswer (counter, letter){
+    letter = letter.toLowerCase()
+
+    const milestone = milestones[counter]
+    const question = milestone.question[0]
+
+    return {
+      letter: letter,
+      text: question.answer[letter]
+    } 
+  },
+  getCorrectAnswer (counter){
+    const milestone = milestones[counter]
+    const question = mielstone.questions[0]
+
+    return {
+      letter: question.correctAnswer,
+      text: question.answers[question.correctAnswer]
+    }
+  }
+}
+
+const WELCOME_MESSAGE = 'Welcome to Who Wants To Be A Millionaire! To begin, say "start a game"'
+const START_MESSAGE = 'You will be asked a question, followed by 4 answers. Answer the question with the word "answer" along with the letter that corresponds to your answer. Let\'s kick off with the first question!<break time="1s"/>'
+const REPROMPT_SPEECH = 'Please answer with the word "answer" along with A, B, C or D. You can also say "repeat the question".'
+const HELP_MESSAGE = 'To begin, say "start a game". <break time="1s"/>Answer questions with the word "answer" followed by the letter of the question.'
+
+const states = {
+  START: '_START',
+  QUESTIONS: '_QUESTIONS'
+}
+
+const handlers = {
+  LaunchRequest () {
+    this.handler.state = states.START
+    this.emitWithState('Start')
+  },
+  QuestionsIntent () {
+    this.handler.state = states.QUESTIONS
+    this.emitWithState('Questions')
+  },
+  Unhandled () {
+    this.handler.state = states.START
+    this.emitWithState('Start')
+  }
+}

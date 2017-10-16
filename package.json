@@ -1,0 +1,22 @@
+{
+  "name": "millionairgame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jez23/millionairGame.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jez23/millionairGame/issues"
+  },
+  "homepage": "https://github.com/jez23/millionairGame#readme",
+  "dependencies": {
+    "alexa-sdk": "^1.0.14"
+  }
+}
